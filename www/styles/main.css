@@ -1,0 +1,40 @@
+.ng-submitted .ng-invalid {
+    /* color: red; */
+    background: -webkit-linear-gradient(left,#FF0013,#FF0009);
+}
+
+button#subtrair {
+    box-shadow: 0 1px 4px #F00;
+    min-width: 40px;
+}
+
+li.comp.completed {
+    background-color: #62C062;
+}
+li.comp.completed  > div  > h3 {
+    color:white;
+}
+
+#btnInserirProjeto, #btnSend {
+    padding: 10px 5px;
+}
+
+#btnInserirProjeto {
+    padding-top: 7px;
+}
+
+#prazoProjeto {
+    border: none;
+    border-bottom: 1px solid #888;
+    width: 175px;
+    background-color: #fff;
+    color: #888;
+}
+    
+.back {
+    margin-top: -6px !important;
+    margin-right: 12px !important;
+}
+
+
+

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='seisSigmaManager'>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Seis Sigma Manager</title>
+    <link rel="stylesheet" href="./frameworks/chui_3.8/chui-android-3.8.10.min.css">    
+    <link rel="stylesheet" href="./styles/tipography.css">
+    <link rel="stylesheet" href="./styles/chui_custom.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    
+    
+    <script src="./frameworks/jquery-2.1.1.min.js"></script>
+    <script src="./frameworks/chui_3.8/chui-3.8.10.min.js"></script>
+    <script type="text/javascript" src='./frameworks/angular.min.js'></script>
+
+</head>
+<body>
+    <div ng-controller='ProjetosController'>
+        <!--Projetos-->
+        <nav class='current'>
+            <h1>Seis Sigma - Projetos </h1> 
+            <button id='btnInserirProjeto'><i class="material-icons">add</i></button>
+            <button id='btnSend' cc-singletap='saveExame()'><i class="material-icons">mail</i></button>
+        </nav>
+        <article id='projetos' class='current exitable'>
+            <section>
+            <ul class='list' id='examesList'>
+                <li class='comp' cc-singletap='selectProjeto(projeto.id)' cc-longtap='deleteProjeto(projeto)' data-goto='projeto' ng-repeat="projeto in projetos">
+                    <div>
+                        <h3>{{projeto.projeto}}</h3>
+                        <p>{{'prazo: ' + projeto.prazo + ' meses'}}</p>
+                        <p>{{'tempo restante: ' + projeto.restante}}</p>
+                    </div>
+                </li>
+            </ul>
+            </section>
+        </article>
+        
+        <!--Aplicando Projeto-->
+        <nav class='next'>
+            <button class='back'></button>
+            <h1>{{'Projeto: ' + projeto.projeto}}</h1>
+        </nav>
+        <article id='projeto' class='next'>
+            <section>
+                <div ng-repeat='fase in projeto.fases'>
+                <ul id="listaFases" class="list">
+                    <li cc-singletap="selectFase(fase.id)" data-goto="fase">
+                        <h3 >{{'Fase: ' + fase.nome}}</h3>
+                        <p ng-show="fase.itens.concluido">Status: Concluída</p>
+                        <p ng-hide="fase.itens.concluido">Status: Incompleta</p>
+                    </li>
+                </ul>  
+                </div>
+            </section>
+        </article>
+        <nav class='next'>
+            <button class='back'></button>
+            <h1>{{'Projeto: ' + projeto.projeto}}</h1>
+        </nav>
+        <article id='fase' class='next'>
+            <section>
+                <div>
+                    <h2>{{fase.nome}}</h2>
+                    
+                        <form novalidate ng-submit="enviarRespostas()">
+                        <ul class='list'>
+                        <li ng-repeat='pergunta in fase.perguntas'>
+                            <h3>{{pergunta.pergunta}}</h3>
+                            
+                            <input type="text" id="{{pergunta.categoria}}" name="{{pergunta.categoria}}" ng-model="pergunta.model"></input>
+                               
+                        </li>
+                        </ul>
+                        </form>
+                    
+                </div>
+            </section>
+        </article>
+        <nav class='next'>
+            <button class="back"></button>
+            <h1>Novo Projeto</h1>            
+        </nav>
+        <article id="inserirProjeto" class='next'>
+            <section>
+                <form novalidate name='formInserirProjeto' id='formInserirProjeto' ng-submit='inserirProjeto()'>
+                    <ul class='list'>
+                        <li>
+                            <input type='text' id='nomeProjeto' placeholder='Nome do projeto' ng-model='nomeProjeto' required/>
+                        </li>
+                        <li>
+                            <select id='prazoProjeto' ng-model='prazoProjeto' required>
+                                <option value="0">Prazo do Projeto</option>
+                                <option value="4">4 meses</option>
+                                <option value="6">6 meses</option>
+                                <option value="8">8 meses</option>
+                                <option value="12">12 meses</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <p>
+                        <button id='btnInserirProjetoDone' cc-singletap='formInserirProjeto.submit()'>Inserir</button>
+                    </p>
+                </form>
+            </section>
+        </article>
+    </div>
+    <script src="./frameworks/ng-cordova.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/directives.js"></script>
+    <script src="scripts/controllers.js"></script>
+    <script src="scripts/services.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+</body>
+</html>
